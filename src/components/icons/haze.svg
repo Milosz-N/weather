@@ -1,0 +1,20 @@
+<svg width="80"
+
+
+ height="12" xmlns="http://www.w3.org/2000/svg">
+
+ 
+
+
+<rect x="2" y="2" width="22" height="5" rx="5px" ry="5px" fill="#89836a" stroke-width="1" stroke="#2c2a21"/>
+ 
+ <rect x="30" y="2" width="15" height="5" rx="5px" ry="5px" fill="#89836a" stroke-width="1" stroke="#2c2a21"/>
+
+<rect x="50" y="2" width="20" height="5" rx="5px" ry="5px" fill="#89836a" stroke-width="1" stroke="#2c2a21"/>
+ 
+ <rect x="49" y="68" width="22" height="5" rx="5px" ry="5px" fill="#89836a" stroke-width="1" stroke="#2c2a21"/>
+
+
+
+ 
+</svg>

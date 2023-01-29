@@ -1,0 +1,21 @@
+<svg width="12"
+
+
+ height="12" xmlns="http://www.w3.org/2000/svg">
+
+ 
+
+
+  <line x1="2" y1="2" x2="8" y2="8" stroke="#74767c" />
+    <line x1="8" y1="2" x2="2" y2="8" stroke="#74767c" />
+      <line x1="0" y1="5" x2="10" y2="5" stroke="#74767c" />
+            <line x1="5" y1="0" x2="5" y2="10" stroke="#74767c" />
+
+
+
+
+
+
+
+
+</svg>

@@ -1,0 +1,226 @@
+
+.div-plot{
+    width: 80px;
+    height: 170px;
+    display: flex;
+ flex-direction: column-reverse;
+ margin-top: 10px;
+//  margin-top: 15px;
+
+}
+
+.buttonHour{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    
+  
+    padding: 0;
+    width: 90%;
+}
+
+.bcg{
+    background-color: #f3f3f1;
+    border-radius: 20px;
+}
+
+.plotNextday{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.plot{
+    width: 4rem;
+    height: 2em;
+    background-color: orange;
+}
+
+legend{
+ 
+    text-align: center;
+    margin-top: -40%;
+}
+
+.arrow{
+    margin: auto;
+}
+.arrow-container{
+    // margin-bottom: 10px;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-gap: 15px;
+}
+.block{
+    width: 80px;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.wind{
+    width: 100%;
+    text-align: center;
+}
+.plotTime{
+    // padding-top: 10px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+
+.containerDayBtn{
+    width: 100%;
+display: flex;
+
+justify-content: normal;
+gap: 15px;
+// margin-top: 20px;
+
+}
+.plot-nextday{
+width: 100px;
+padding: 10px 0px 10px 0px;
+display: grid;
+}
+
+
+img{
+    margin: auto;
+}
+
+.pop{
+   display: flex;
+   justify-content: center;
+   margin-top: 0;
+}
+
+.normal{
+    flex-direction: normal;
+    gap: 20px
+}
+
+.plot-nextday div, .sunCloud , .iconContainer{
+    width: 100px;
+    height: 85px;
+    position: relative;
+  
+}
+
+.sun{
+    animation: spin 30s linear infinite;
+    // transform-origin: 20% 40%; 
+  
+    // transform: translate(120px, 50%);  //to dla deszczu
+
+}
+
+.cloud{
+top: 10%
+}
+.drop{
+        animation: fall 2s linear infinite;
+        position: inherit;
+
+
+}
+.drizzle{
+    animation: drizzleFall 2s linear infinite;
+    position: inherit;
+
+
+}
+.haze{
+    animation: hazee 2s linear infinite;
+    position: inherit;
+
+
+}
+.snow{
+    animation: snowAnimation 2s linear infinite;
+    position: inherit;
+
+
+}
+@keyframes snowAnimation{
+    0%{
+      transform: translateY(-5px) rotate(0deg);
+    //   transform: rotate(0deg);
+    }
+    100%{
+      transform: translateY(20px) rotate(360deg);
+    //   transform: rotate(360deg);
+
+    }
+  }
+
+
+.rainHeavy{
+    width: 100px;
+    height: 85px;
+}
+
+@keyframes hazee{
+    0%{
+      transform: translateX(15px);
+      overflow: hidden;
+    }
+    100%{
+      transform: translateX(-15px);
+    }
+  }
+
+@keyframes fall{
+    0%{
+      transform: translateY(40px);
+    }
+    100%{
+      transform: translateY(90px);
+    }
+  }
+  @keyframes drizzleFall{
+    0%{
+      transform: translate(30px, 40px);
+
+    }
+    100%{
+      transform: translate(10px, 90px);
+    }
+  }
+  
+
+
+.image-icon{
+    position: absolute;
+}
+
+@-moz-keyframes spin { 
+    100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+}

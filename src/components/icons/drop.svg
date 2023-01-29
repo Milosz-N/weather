@@ -1,0 +1,17 @@
+<svg width="10" height="16" xmlns="http://www.w3.org/2000/svg">
+
+ 
+
+ <path d="M 1 10 C 4 16, 7 16, 10 10"
+  
+   fill="#6c84e9"/>
+
+
+     <polyline points="1,11 5,0 10,11"
+      fill = '#6c84e9' 
+     storke="#25398c" />
+
+
+
+
+</svg>

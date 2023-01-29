@@ -1,0 +1,17 @@
+<svg width="40"
+
+
+ height="40" xmlns="http://www.w3.org/2000/svg">
+
+ 
+
+
+
+     <line x1="0" x2="24" y1="12" y2="36" stroke="#9aa097" stroke-width="3"/>
+          <line x1="24" x2="0" y1="12" y2="36" stroke="#9aa097" stroke-width="3"/>
+
+
+
+
+ 
+</svg>
