@@ -11,6 +11,7 @@ function FirstColumn({ state, settings, setSettings }) {
     "Friday",
     "Saturday",
   ];
+
   return (
     <>
       <div className="flex">

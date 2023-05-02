@@ -1,9 +1,10 @@
-import React, { useState, useRef, useReducer } from "react";
+import React, { useState, useRef, useReducer, useTransition } from "react";
 import FirstColumn from "./FirstColumn";
 import NextdayBtn from "./NextdayBtn.js";
 import "./scss/main.scss";
 import "./scss/input.scss";
 import Plot from "./Plot";
+import Spinner from "./Spinner";
 function Home() {
 
   const reducer = (state, action) => {
@@ -20,7 +21,7 @@ function Home() {
         return state;
     }
   };
-
+  const [isPending, startTransition] = useTransition()
   const [state, dispatch] = useReducer(reducer, []);
   const [error, setError] = useReducer(reducer, []);
   const [settings, setSettings] = useState({
@@ -53,46 +54,51 @@ function Home() {
     setError({ type: "remove" });
     e.preventDefault();
     if (!cityRef.current.value.length == 0) {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityRef.current.value}&lang=en&appid=e2acebbebc03ce4dd555558a86b812b3`
-      )
-      
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.cod == 200) {
-            dispatch({ type: "add", data: response.list });
-
-            for (let x = 0; x < 9; ++x) {
-              if (
-                new Date(
-                  (response.list[0].dt + response.city.timezone) * 1000
-                ).getDate() !==
-                new Date(
-                  (response.list[x].dt + response.city.timezone) * 1000
-                ).getDate()
-              ) {
-                setSettings({
-                  ...settings,
-                  nextday: x,
-                  city: `${response.city.name + ", " + response.city.country}`,
-                  timezone: `${response.city.timezone}`,
-                  cod: response.cod,
-                  indexBtn: 0,
-                  index: 0,
-                });
-                break;
-              }
-            }
-            
-            
-          } 
-          else {
-            setError({ type: "add", data: response });
-          }
-        
-        }
-        
+      startTransition(() => {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${cityRef.current.value}&lang=en&appid=e2acebbebc03ce4dd555558a86b812b3`
         )
+        
+          .then((response) => response.json())
+          .then((response) => {
+            if (response.cod == 200) {
+             
+              dispatch({ type: "add", data: response.list });
+  
+              for (let x = 0; x < 9; ++x) {
+                if (
+                  new Date(
+                    (response.list[0].dt + response.city.timezone) * 1000
+                  ).getDate() !==
+                  new Date(
+                    (response.list[x].dt + response.city.timezone) * 1000
+                  ).getDate()
+                ) {
+                  setSettings({
+                    ...settings,
+                    nextday: x,
+                    city: `${response.city.name + ", " + response.city.country}`,
+                    timezone: `${response.city.timezone}`,
+                    cod: response.cod,
+                    indexBtn: 0,
+                    index: 0,
+                  });
+                  break;
+                }
+              }
+              
+              
+            } 
+            else {
+              setError({ type: "add", data: response });
+            }
+          
+          }
+          
+          )
+      })
+
+  
         
        
     }
@@ -117,7 +123,8 @@ function Home() {
           />
         </button>
       </form>
-      {settings.cod == 200 && (
+
+      <>{isPending ? <><Spinner/></>:<> {settings.cod == 200 && (
         <>
           <FirstColumn
             state={state}
@@ -131,13 +138,15 @@ function Home() {
             setSettings={setSettings}
           />
         </>
-      )}
+      )}</>}</>
+     
 
       {error.length > 0 && (
         <h2 className="error">
           {error[0].cod}, {error[0].message}
         </h2>
       )}
+    
     </div>
   );
 }
