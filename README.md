@@ -5,4 +5,4 @@ This app was made in react. Used hooks:
 - useState
 - useReducer
 - useRef
--useTransition
+- useTransition
