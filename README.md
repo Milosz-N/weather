@@ -6,3 +6,6 @@ This app was made in react. Used hooks:
 - useReducer
 - useRef
 - useTransition
+
+This project was bootstrapped with Create React App. Runs the app in the development mode.
+Open http://localhost:3000 to view it in your browser.
