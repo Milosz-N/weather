@@ -1,6 +1,7 @@
 import Icon from "./Icon.js";
 import "../components/scss/firstcolumn.scss";
 import "../components/scss/main.scss";
+import { tempConv, windConv, getDay } from "./conventers.js";
 function FirstColumn({ state, settings, setSettings }) {
   var days = [
     "Sunday",
@@ -18,19 +19,7 @@ function FirstColumn({ state, settings, setSettings }) {
         <div className="flex">
           <Icon a={state[0][settings.index].weather[0].id} />
 
-          <>
-            <h1>
-              {Number.parseInt(
-                settings.unit == 0
-                  ? `${Number.parseInt(
-                      state[0][settings.index].main.temp - 273.15
-                    )}`
-                  : `${Number.parseInt(
-                      (state[0][settings.index].main.temp - 273.15) * 1.8 + 32
-                    )}`
-              )}
-            </h1>
-          </>
+          <h1>{tempConv(state[0][settings.index].main.temp, settings.unit)}</h1>
           <div
             className={` ${
               settings.unit == 0 ? "divtempBtn" : "divtempBtn reverse"
@@ -69,17 +58,8 @@ function FirstColumn({ state, settings, setSettings }) {
             </p>
             <p>Humidity: {state[0][settings.index].main.humidity}% </p>
             <p>
-              Wind:
-              {Number.parseInt(settings.unit) == 0
-                ? `${
-                    Number.parseInt(state[0][settings.index].wind.speed * 3.6) +
-                    ` km/h`
-                  } `
-                : `${
-                    Number.parseInt(
-                      state[0][settings.index].wind.speed * 2.24
-                    ) + ` mph`
-                  }`}
+              Wind:{" "}
+              {windConv(state[0][settings.index].wind.speed, settings.unit)}
             </p>
           </div>
         </div>
@@ -87,7 +67,7 @@ function FirstColumn({ state, settings, setSettings }) {
           <h3>{settings.city}</h3>
           <h4>{state[0][settings.index].weather[0].description}</h4>
           <h4>
-            {days[new Date(state[0][settings.index].dt * 1000).getDay()]},{" "}
+            {getDay(state[0][settings.index].dt, settings.timezone)},{" "}
             {new Date(
               (state[0][settings.index].dt +
                 Number.parseInt(settings.timezone)) *

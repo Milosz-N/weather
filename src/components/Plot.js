@@ -3,7 +3,6 @@ import ButtonTest from "./ButtonTest.js";
 function Plot({ state, settings, setSettings }) {
   let arrButtons = [];
   for (let x = 0; x < 8; x++) {
- 
     arrButtons.push(
       React.createElement(
         "div",
@@ -18,7 +17,7 @@ function Plot({ state, settings, setSettings }) {
               }`,
             });
           },
-          className: `${settings.plotindex < 2 ? "div-plot" : "div-plot"}`,
+          className: `${"div-plot"}`,
           key: x,
         },
 

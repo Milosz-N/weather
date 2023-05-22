@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Icon from "./Icon";
+import { getDay, tempConv } from "./conventers";
 function NextdayBtn({ state, settings, setSettings }) {
   const [bcg, setBcg] = useState(0);
   let arrNextDayBtn = [];
@@ -46,41 +47,25 @@ function NextdayBtn({ state, settings, setSettings }) {
               "h4",
               {
                 className: "wind",
-                key: x
-                 
+                key: x,
               },
-              days[
-                x == 0
-                  ? new Date(
-                      (state[0][0].dt + Number.parseInt(settings.timezone)) *
-                        1000
-                    ).getDay()
-                  : new Date(
-                      (state[0][x * 8].dt + Number.parseInt(settings.nextday)) *
-                        1000
-                    ).getDay()
-              ]
+              getDay(state[0][x * 8].dt, settings.timezone)
             ),
             React.createElement(Icon, {
               a:
-                x == 0
-                  ? state[0]
-                      .slice(0, settings.nextday)
+             
+                state[0].slice(
+                  `${x == 0 ? 0 : settings.nextday + 8 * (x - 1)}`,`${x == 0 ? settings.nextday : settings.nextday + 8 *x})}`
+                 
+                )
+                 
                       .reduce(
                         (partialSum, a) => partialSum + a.weather[0].id,
                         0
-                      ) / settings.nextday
-                  : state[0]
-                      .slice(
-                        settings.nextday + 8 * (x - 1),
-                        settings.nextday + 8 * x
-                      )
-                      .reduce(
-                        (partialSum, a) => partialSum + a.weather[0].id,
-                        0
-                      ) / settings.nextday,
+                      ) / `${x == 0 ? settings.nextday : 8}`,
+               
 
-              key: x + 5
+              key: x + 5,
             }),
             React.createElement(
               "div",
@@ -95,36 +80,18 @@ function NextdayBtn({ state, settings, setSettings }) {
                     className: "pMaxmin bold",
                     key: x + 100,
                   },
-                  x == 0
-                    ? state[0]
-                        .map(function (element) {
-                          return element.main.temp - 273.15;
-                        })
-                        .slice(0, settings.nextday)
-                        .map(function (element) {
-                          if (settings.unit == 0) {
-                            return Number.parseInt(element);
-                          } else {
-                            return Number.parseInt(element * 1.8 + 32);
-                          }
-                        })
-                        .reduce((a, b) => Math.max(a, b)) + `°`
-                    : state[0]
-                        .map(function (element) {
-                          return element.main.temp - 273.15;
-                        })
-                        .slice(
-                          settings.nextday + 8 * (x - 1),
-                          settings.nextday + 8 * x
-                        )
-                        .map(function (element) {
-                          if (settings.unit == 0) {
-                            return Number.parseInt(element);
-                          } else {
-                            return Number.parseInt(element * 1.8 + 32);
-                          }
-                        })
-                        .reduce((a, b) => Math.max(a, b)) + `°`
+                  state[0]
+                    .map(function (element) {
+                      return element.main.temp;
+                    })
+                    .slice(
+                      `${x == 0 ? 0 : settings.nextday + 8 * (x - 1)}`,
+                      `${x == 0 ? settings.nextday : settings.nextday + 8 * x}`
+                    )
+                    .map(function (element) {
+                      return tempConv(element, settings.unit);
+                    })
+                    .reduce((a, b) => Math.max(a, b)) + `°`
                 ),
                 React.createElement(
                   "h4",
@@ -133,36 +100,18 @@ function NextdayBtn({ state, settings, setSettings }) {
                     className: "pMaxmin",
                     key: x + 105,
                   },
-
-                  x == 0
-                    ? state[0]
-                        .map(function (element) {
-                          return element.main.temp - 273.15;
-                        })
-                        .map(function (element) {
-                          if (settings.unit == 0) {
-                            return Number.parseInt(element);
-                          } else {
-                            return Number.parseInt(element * 1.8 + 32);
-                          }
-                        })
-                        .reduce((a, b) => Math.min(a, b)) + `°`
-                    : state[0]
-                        .map(function (element) {
-                          return element.main.temp - 273.15;
-                        })
-                        .slice(
-                          settings.nextday + 8 * (x - 1),
-                          settings.nextday + 8 * x
-                        )
-                        .map(function (element) {
-                          if (settings.unit == 0) {
-                            return Number.parseInt(element);
-                          } else {
-                            return Number.parseInt(element * 1.8 + 32);
-                          }
-                        })
-                        .reduce((a, b) => Math.min(a, b)) + `°`
+                  state[0]
+                    .map(function (element) {
+                      return element.main.temp;
+                    })
+                    .slice(
+                      `${x == 0 ? 0 : settings.nextday + 8 * (x - 1)}`,
+                      `${x == 0 ? settings.nextday : settings.nextday + 8 * x}`
+                    )
+                    .map(function (element) {
+                      return tempConv(element, settings.unit);
+                    })
+                    .reduce((a, b) => Math.min(a, b)) + `°`
                 ),
               ]
             ),

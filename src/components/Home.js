@@ -6,7 +6,6 @@ import "./scss/input.scss";
 import Plot from "./Plot";
 import Spinner from "./Spinner";
 function Home() {
-
   const reducer = (state, action) => {
     switch (action.type) {
       case "add": {
@@ -16,12 +15,15 @@ function Home() {
       case "remove": {
         return state.slice(0, -1);
       }
+      case "error": {
+        console.log(state);
+      }
 
       default:
         return state;
     }
   };
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition();
   const [state, dispatch] = useReducer(reducer, []);
   const [error, setError] = useReducer(reducer, []);
   const [settings, setSettings] = useState({
@@ -35,7 +37,7 @@ function Home() {
     indexBtn: 0,
   });
   const cityRef = useRef();
-
+  console.log(state);
   function onSubmit(e) {
     setSettings({
       ...settings,
@@ -50,7 +52,7 @@ function Home() {
       indexBtn: 0,
       dayBtn: 0,
     });
-    dispatch({ type: "remove" });
+    dispatch({ type: "error" });
     setError({ type: "remove" });
     e.preventDefault();
     if (!cityRef.current.value.length == 0) {
@@ -58,13 +60,12 @@ function Home() {
         fetch(
           `https://api.openweathermap.org/data/2.5/forecast?q=${cityRef.current.value}&lang=en&appid=e2acebbebc03ce4dd555558a86b812b3`
         )
-        
           .then((response) => response.json())
           .then((response) => {
             if (response.cod == 200) {
-             
+              console.log(response);
               dispatch({ type: "add", data: response.list });
-  
+
               for (let x = 0; x < 9; ++x) {
                 if (
                   new Date(
@@ -77,7 +78,9 @@ function Home() {
                   setSettings({
                     ...settings,
                     nextday: x,
-                    city: `${response.city.name + ", " + response.city.country}`,
+                    city: `${
+                      response.city.name + ", " + response.city.country
+                    }`,
                     timezone: `${response.city.timezone}`,
                     cod: response.cod,
                     indexBtn: 0,
@@ -86,21 +89,11 @@ function Home() {
                   break;
                 }
               }
-              
-              
-            } 
-            else {
+            } else {
               setError({ type: "add", data: response });
             }
-          
-          }
-          
-          )
-      })
-
-  
-        
-       
+          });
+      });
     }
   }
   return (
@@ -114,7 +107,6 @@ function Home() {
           />
         </button>
         <button>
-        
           <img
             src={require("../components/icons/x.svg").default}
             onClick={() => {
@@ -124,29 +116,42 @@ function Home() {
         </button>
       </form>
 
-      <>{isPending ? <><Spinner/></>:<> {settings.cod == 200 && (
-        <>
-          <FirstColumn
-            state={state}
-            settings={settings}
-            setSettings={setSettings}
-          />
-          <Plot state={state} settings={settings} setSettings={setSettings} />
-          <NextdayBtn
-            state={state}
-            settings={settings}
-            setSettings={setSettings}
-          />
-        </>
-      )}</>}</>
-     
+      <>
+        {isPending ? (
+          <>
+            <Spinner />
+          </>
+        ) : (
+          <>
+            {" "}
+            {settings.cod == 200 && (
+              <>
+                <FirstColumn
+                  state={state}
+                  settings={settings}
+                  setSettings={setSettings}
+                />
+                <Plot
+                  state={state}
+                  settings={settings}
+                  setSettings={setSettings}
+                />
+                <NextdayBtn
+                  state={state}
+                  settings={settings}
+                  setSettings={setSettings}
+                />
+              </>
+            )}
+          </>
+        )}
+      </>
 
       {error.length > 0 && (
         <h2 className="error">
           {error[0].cod}, {error[0].message}
         </h2>
       )}
-    
     </div>
   );
 }
