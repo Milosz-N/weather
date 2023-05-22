@@ -4,15 +4,19 @@ import { getDay, tempConv } from "./conventers";
 function NextdayBtn({ state, settings, setSettings }) {
   const [bcg, setBcg] = useState(0);
   let arrNextDayBtn = [];
-  var days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+ console.log(state[0])
+console.log( state[0].slice(0, 3).map(function (element) {
+  return(element.weather[0].id)
+})
+
+.reduce(
+  (a,b,i,arr)=>
+   (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
+  null))
+
+for(Element of state[0]){
+  console.log(Element.weather[0].id)
+}
 
   if (settings.nextday) {
     for (let x = 0; x < 5; x++) {
@@ -55,14 +59,16 @@ function NextdayBtn({ state, settings, setSettings }) {
               a:
              
                 state[0].slice(
-                  `${x == 0 ? 0 : settings.nextday + 8 * (x - 1)}`,`${x == 0 ? settings.nextday : settings.nextday + 8 *x})}`
+                  (x == 0 ? 0 : settings.nextday + 8 * (x - 1) + 1, x == 0 ? settings.nextday : settings.nextday + 8 *x)
                  
-                )
+                ).map(function (element) {
+                  return(element.weather[0].id)
+                })
                  
-                      .reduce(
-                        (partialSum, a) => partialSum + a.weather[0].id,
-                        0
-                      ) / `${x == 0 ? settings.nextday : 8}`,
+                .reduce(
+                  (a,b,i,arr)=>
+                   (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
+                  '433'),
                
 
               key: x + 5,

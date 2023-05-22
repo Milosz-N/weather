@@ -3,15 +3,6 @@ import "../components/scss/firstcolumn.scss";
 import "../components/scss/main.scss";
 import { tempConv, windConv, getDay } from "./conventers.js";
 function FirstColumn({ state, settings, setSettings }) {
-  var days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
 
   return (
     <>
