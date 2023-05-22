@@ -21,8 +21,7 @@ function Home() {
         return state;
     }
   };
-  const [start, setStart] = useState(2);
-  const [startCount, setStartCount] = useState(false);
+
   const [isPending, startTransition] = useTransition()
   const [state, dispatch] = useReducer(reducer, []);
   const [error, setError] = useReducer(reducer, []);
