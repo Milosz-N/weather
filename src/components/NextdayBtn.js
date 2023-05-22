@@ -2,21 +2,14 @@ import React, { useState } from "react";
 import Icon from "./Icon";
 import { getDay, tempConv } from "./conventers";
 function NextdayBtn({ state, settings, setSettings }) {
-  const [bcg, setBcg] = useState(0);
+  const [background, setBackground] = useState(0);
   let arrNextDayBtn = [];
- console.log(state[0])
-console.log( state[0].slice(0, 3).map(function (element) {
-  return(element.weather[0].id)
-})
-
-.reduce(
-  (a,b,i,arr)=>
-   (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
-  null))
-
-for(Element of state[0]){
-  console.log(Element.weather[0].id)
-}
+// console.log( state[0].slice(0, 3).map(function (element) {
+//   return(element.weather[0].id)
+// }).reduce(
+//   (a,b,i,arr)=>
+//    (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
+//   null))
 
   if (settings.nextday) {
     for (let x = 0; x < 5; x++) {
@@ -25,7 +18,7 @@ for(Element of state[0]){
           "div",
           {
             key: x,
-            className: `${bcg == x ? "plot-nextday bcg" : "plot-nextday"}`,
+            className: `${background == x ? "plot-nextday bcg" : "plot-nextday"}`,
             onClick: () => {
               if (x == 0) {
                 setSettings({
@@ -34,7 +27,7 @@ for(Element of state[0]){
                   dayBtn: 0,
                   indexBtn: 0,
                 });
-                setBcg(0);
+                setBackground(0);
               } else {
                 setSettings({
                   ...settings,
@@ -42,7 +35,7 @@ for(Element of state[0]){
                   dayBtn: x,
                   indexBtn: settings.nextday + (x - 1) * 8,
                 });
-                setBcg(x);
+                setBackground(x);
               }
             },
           },
@@ -57,21 +50,15 @@ for(Element of state[0]){
             ),
             React.createElement(Icon, {
               a:
-             
-                state[0].slice(
-                  (x == 0 ? 0 : settings.nextday + 8 * (x - 1) + 1, x == 0 ? settings.nextday : settings.nextday + 8 *x)
-                 
-                ).map(function (element) {
+             state[0].slice((x == 0 ? 0 : settings.nextday + 8 * (x - 1) + 1, x == 0 ? settings.nextday : settings.nextday + 8 *x))
+             .map(function (element) {
                   return(element.weather[0].id)
                 })
-                 
-                .reduce(
-                  (a,b,i,arr)=>
-                   (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
-                  '433'),
-               
-
-              key: x + 5,
+              .reduce(
+                (a,b,i,arr)=>
+                  (arr.filter(v=>v===a).length>=arr.filter(v=>v===b).length?a:b),
+                  null),
+               key: x + 5,
             }),
             React.createElement(
               "div",

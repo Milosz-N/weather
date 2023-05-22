@@ -3,7 +3,7 @@ import "../components/scss/spinner.scss";
 function Spinner() {
   return (
     <>
-      <div class="spinner"></div>
+      <div className="spinner"></div>
     </>
   );
 }
